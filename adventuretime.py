@@ -1,43 +1,47 @@
 yes = ["y", "yes"]
 no = ["n", "no"]
 
-ans = input("\n>> ")
+#ans = input("\n>> ")
+
+Text_support = "Text_support.txt"
+
+with open(Text_support) as f:
+    line = f.readlines()
+# How to read: https://www.pythontutorial.net/python-basics/python-read-text-file/
 
 
 def main(): #kanske ta bort funktionen
 #    main_menu()
-
+    print(line[0])
     rooms = {
-        'captains quarters': {'name': 'captains quarters', 'down': 'kitchen', 'outside': 'deck', 'items': '[insert text]', 'desc' : '[insert text]'},
-        'kitchen': {'name': 'kitchen', 'up': 'captains quarters', 'down': 'sleeping quarters', 'items': '[insert text]', 'desc' : '[insert text]'},
-        'sleeping quarters': {'name': 'sleeping quarters', 'up': 'kitchen', 'down': 'engine room','outside': 'deck', 'items': '[insert text]', 'desc' : '[insert text]'},
-        'engine room': {'name': 'engine room', 'up': 'sleeping quarters', 'items': '[insert text]', 'desc' : '[insert text]'},
-        'deck': {'name': 'deck', 'items': '[insert text]', 'desc' : '[insert text]'}
+        'captains quarters': {'name': 'captains quarters', 'down': 'deck', 'items': '[TEXT]', 'desc' : 'line[1]'},
+        'kitchen': {'name': 'kitchen', 'down': 'sleeping quarters', 'items': '[TEXT]', 'desc' : 'line[2]'},
+        'sleeping quarters': {'name': 'sleeping quarters', 'up': 'kitchen', 'down': 'engine room','outside': 'deck', 'items': '[TEXT]', 'desc' : 'line[3]'},
+        'engine room': {'name': 'engine room', 'up': 'sleeping quarters', 'items': '[TEXT]', 'desc' : 'line[4]'},
+        'deck': {'name': 'deck', 'inside1': 'captains quarters', 'inside2': 'sleeping quarters', 'items': '[TEXT]', 'desc' : 'line[5]'}
     }
 
     # current location 
     cur_location = rooms['captains quarters']
 
-    # commands available to the player
-    commands = ['up', 'down', 'outside', 'inventory', 'key', 'toolbox', 'crowbar', 'fuse', 'food']
+    commands = ['up', 'down', 'outside', 'inside' 'inventory', 'key', 'toolbox', 'crowbar', 'fuse', 'food']
 
-    # Blank list for the inventory
     inventory = []
 
 #def main_game():
     while True:
-        print('You are in the {}.'.format(current_loc['name'], ))  # Print current location
-        print('This room contains {}.'.format(current_loc['item'], ))  # Print the item in the locations
+        print('You are in the {}.'.format(cur_location['name'], ))  # Print current location
+        print('This room contains {}.'.format(cur_location['item'], ))  # Print the item in the locations, BEHÖVS NOG INTE
 
 
         command = input('\nWhat would you like to do?').strip()  # Get player command input
         if command in commands:
 
-            if command in current_loc:
-                current_loc = rooms[current_loc[command]]
+            if command in cur_location:
+                cur_location = rooms[cur_location[command]]
 
             if command in 'bing':
-                inventory.append(rooms[current_loc[command]])
+                inventory.append(rooms[cur_location[command]])
 
         elif command.lower() == 'quit':  
             print('You quit the game.')
