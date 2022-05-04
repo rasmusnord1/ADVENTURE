@@ -7,8 +7,6 @@ You look down at the surprisingly empty deck and realize that you are in the cap
 Room descriptions:
     captains quarters:
 The captain’s quarters are relatively small, with sparse decorations. Apart from the small bed in the corner, there is a desk with papers strewn all over it. Beside it, there is a radio. Behind you, there is a door which leads down to the deck.
-
-Down, you can go to the engine room. Up, you can go to the kitchen. 
     kitchen:
     sleeping quarters:
     engine room:

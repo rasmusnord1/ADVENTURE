@@ -3,14 +3,14 @@ line = file.readlines()
 
 gamestate = {}
 gamestate['inventory'] = []
-gamestate['current location'] = 'kitchen'
+gamestate['current location'] = 'captains quarters'
 
 rooms = {
-    'captains quarters': {'name': 'captains quarters', 'down': 'deck', 'item': 'crowbar', 'desc' : 'line[10]'},
-    'kitchen': {'name': 'kitchen', 'down': 'sleeping quarters', 'item': '[TEXT]', 'desc' : 'line[2]'},
-    'sleeping quarters': {'name': 'sleeping quarters', 'up': 'kitchen', 'down': 'engine room','outside': 'deck', 'item': '[TEXT]', 'desc' : line[3]},
-    'engine room': {'name': 'engine room', 'up': 'sleeping quarters', 'item': '[TEXT]', 'desc' : 'line[4]'},
-    'deck': {'name': 'deck', 'inside1': 'captains quarters', 'inside2': 'sleeping quarters', 'item': '[TEXT]', 'desc' : 'line[5]'}
+    'captains quarters': {'name': 'captains quarters', 'roomchoice': 'deck', 'item': 'crowbar', 'desc' : 'line[10]'},
+    'kitchen': {'name': 'kitchen', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'desc' : 'line[2]'},
+    'sleeping quarters': {'name': 'sleeping quarters', 'roomchoice': ['kitchen','engine room', 'deck'], 'item': '[TEXT]', 'desc' : line[3]},
+    'engine room': {'name': 'engine room', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'desc' : 'line[4]'},
+    'deck': {'name': 'deck', 'roomchoice': ['captains quarters', 'sleeping quarters'], 'item': '[TEXT]', 'desc' : 'line[5]'}
 }
 commands = {
     ('pickup','pick-up','take','get','grab'):'take',
@@ -19,10 +19,26 @@ commands = {
     ('look','inspect','view','l'):'look'
 }
 
-
-
-
 cur_location = rooms['captains quarters']
+
+def parse_input(text_input):
+    words = text_input.split(' ')
+    helper_commands = ['at','to','in','through','by','the','and','but','inside','toward']
+    for word in words[:]:
+        if word in helper_commands: 
+            words.remove(word)
+    for roomcheck in rooms:
+        if roomcheck in text_input:
+            r = True
+            room_output = roomcheck
+            break
+    for command in commands:
+        if words[0] in command:
+            output = f'{commands[command]} {" ".join(words[1:])}'
+            if r:
+                return commands[command], room_output
+            print(output)
+            return output, None
 
 
 def pickup_item():
@@ -41,23 +57,15 @@ def use_item(gamestate):
 
 def goto_location(room_output):
     if room_output in rooms[cur_location['roomchoice']]:
-        cur_location['item'] = room_output
+        cur_location = rooms[room_output]
+        print(cur_location)
+        return cur_location
+    else:
+        print('You cannot go to that room from here')
 
-for roomcheck in rooms:
 
-            r = True
-            room_output = roomcheck
 
-commands['take item'] = {
-    'perform': pickup_item
-}
-commands['use item'] = {
-    'perform': use_item
-}
-commands['go'] = {
-    'perform': goto_location(room_output)
-}
-#}
+
 
 
 
