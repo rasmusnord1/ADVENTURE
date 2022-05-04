@@ -3,6 +3,8 @@ no = ["n", "no"]
 
 #ans = input("\n>> ")
 
+
+
 Text_support = "Text_support.txt"
 
 with open(Text_support) as f:
