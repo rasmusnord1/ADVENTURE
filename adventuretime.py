@@ -9,21 +9,23 @@ line = file.readlines()
 #with open(Text_support) as f:
 #    line = f.readlines()
 # How to read: https://www.pythontutorial.net/python-basics/python-read-text-file/
+# cmd+shift+7 for '#'
 
 
 
 gamestate = {}
-gamestate['inventory'] = []
-gamestate['current location'] = 'captains quarters'
 commands = {}
+gamestate['inventory'] = []
+# gamestate['current location'] = 'captains quarters'
+
 
 
 rooms = {
-    'captains quarters': {'name': 'captains quarters', 'roomchoice': 'deck', 'item': 'crowbar', 'desc' : line[8]},
-    'kitchen': {'name': 'kitchen', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'desc' : 'line[2]'},
-    'sleeping quarters': {'name': 'sleeping quarters', 'roomchoice': ['kitchen','engine room', 'deck'], 'item': '[TEXT]', 'desc' : line[3]},
-    'engine room': {'name': 'engine room', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'desc' : 'line[4]'},
-    'deck': {'name': 'deck', 'roomchoice': ['captains quarters', 'sleeping quarters'], 'item': '[TEXT]', 'desc' : 'line[5]'}
+    'captains quarters': {'name': 'captains quarters', 'roomchoice': 'deck', 'item': 'crowbar', 'desc' : line[7]},
+    'kitchen': {'name': 'kitchen', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'desc' : line[9]},
+    'sleeping quarters': {'name': 'sleeping quarters', 'roomchoice': ['kitchen','engine room', 'deck'], 'item': '[TEXT]', 'desc' : line[11]},
+    'engine room': {'name': 'engine room', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'desc' : line[13]},
+    'deck': {'name': 'deck', 'roomchoice': ['captains quarters', 'sleeping quarters'], 'item': '[TEXT]', 'desc' : line[15]}
 }
 command_switch = {
     ('pickup','pick-up','take','get','grab'):'take',
@@ -34,16 +36,20 @@ command_switch = {
 
 
 
-cur_location = rooms['sleeping quarters']
+cur_location = rooms['captains quarters']
+
+def dialogue():
+    return
 
 def parse_input(text_input):
     words = text_input.split(' ')
-    helper_commands = ['at','to','in','through','by','the','and','but','inside','toward']
+    helper_commands = ['at','to','in','through','by','the','and','but','inside','toward','outside','inside']
     for word in words[:]:
         if word in helper_commands: 
             words.remove(word)
     for command in command_switch:
         if words[0] in command:
+            # if och sen för att använda ett item på en annan sak.
             text_output = f'{command_switch[command]} {" ".join(words[1:])}'
             ri_output = " ".join(words[1:])
             print(text_output)
@@ -89,11 +95,11 @@ def pickup_item(text_output):
 def can_use_item():
     return True
 
-def use_item():
-    print('[TRIGGER] use item')
-    if gamestate['current location'] == 'deck':
-        gamestate['inventory'].remove('crowbar')
-        print(line[...])
+# def use_item():
+#     print('[TRIGGER] use item')
+#     if gamestate['current location'] == 'deck':
+#         gamestate['inventory'].remove('crowbar')
+#         print(line[...])
 
 def can_goto_location(text_output):
     words = text_output.split()
@@ -109,9 +115,12 @@ def goto_location(text_output):
         words = text_output.split()
         print(words)
         cur_location = rooms[' '.join(words[1:])]
-        print(cur_location) 
+        print(f"You go to the {cur_location['name']}") 
+        return dialogue
 
 
+
+# TESTING
 print(cur_location['item'])
 print(cur_location['roomchoice'])
 # def goto_location(ri_output):
@@ -155,9 +164,9 @@ while N == True:
 commands['take item'] = {
     'perform': pickup_item(text_output)
 }
-commands['use item'] = {
-    'perform': use_item()
-}
+# commands['use item'] = {
+#     'perform': use_item()
+# }
 
 commands['goto location'] = {
     'perform': goto_location(text_output)

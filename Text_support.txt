@@ -3,17 +3,19 @@ You open your eyes and realize that you are laying in a bed in a room you don’
 
 You look down at the surprisingly empty deck and realize that you are in the captain’s quarters. This strikes you as odd, since you were never allowed to go near there. All you did was slave away on the deck, taking orders from superior staff. The pay was surprisingly good for such a simple job on such a short notice. You realize that the ship doesn’t move. This is odd, since it seems to be in the middle of the day. Where is everybody? You try to switch on the lights, but the light switch doesn’t do anything. Is there a power outage? You turn back around.
 
-
 Room descriptions:
     captains quarters:
 The captain’s quarters are relatively small, with sparse decorations. Apart from the small bed in the corner, there is a desk with papers strewn all over it. Beside it, there is a radio. Behind you, there is a door which leads down to the deck.
     kitchen:
+
     sleeping quarters:
+
     engine room:
+
     deck:
-
-
 The cold, humid air hits you as you walk out on the deck. It is quiet and nothing suggests that there is anyone else there. Farther away, a large stack of shipping containers stands. You don’t remember what the ship is supposed to be carrying, or maybe you didn’t ask. Closer to you, an identical shipping container stands on its own. It has stood there for the entire journey, but you never asked why it isn’t near the other containers or what it contains. The doors are locked with a sturdy but rusty chain. All the lifeboats seem to have disappeared. However, the ship is old and still has one old metal lifeboat left. They apparently didn’t remove it when they renovated the ship.
+
+
 
 You cannot do that here.
 You cannot do that here.
@@ -28,9 +30,6 @@ You cannot do that here.
 Help section:
 
 You need help?
-
-Well too bad.
-
 
 
 
