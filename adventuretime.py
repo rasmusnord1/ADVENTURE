@@ -92,14 +92,16 @@ def pickup_item(text_output):
         return usage_error()
 
 
-def can_use_item():
-    return True
+def can_use_item(text_output, gamestate):
+    if gamestate: #inte klar
+        return 
 
-# def use_item():
-#     print('[TRIGGER] use item')
-#     if gamestate['current location'] == 'deck':
-#         gamestate['inventory'].remove('crowbar')
-#         print(line[...])
+def use_item(text_output, gamestate):
+    if can_use_item(text_output, gamestate):
+        print('[TRIGGER] use item') #inte klar
+    if gamestate['current location'] == 'deck':
+        gamestate['inventory'].remove('crowbar')
+        print(line[...])
 
 def can_goto_location(text_output):
     words = text_output.split()
@@ -115,7 +117,7 @@ def goto_location(text_output):
         words = text_output.split()
         print(words)
         cur_location = rooms[' '.join(words[1:])]
-        print(f"You go to the {cur_location['name']}") 
+        print(f"You walk to the {cur_location['name']}") 
         return dialogue
 
 
@@ -158,6 +160,12 @@ while N == True:
         
         text_output, ri_output = parse_input(input('\n\nWhat would you like to do?\n>> '))
         
+        if text_output == 'take item':
+            pickup_item(text_output)
+        elif text_output == 'use item':
+            use_item(text_output)
+        else:
+            goto_location(text_output)
         
         N = False
 
