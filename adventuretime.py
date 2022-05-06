@@ -11,15 +11,6 @@ line = file.readlines()
 # How to read: https://www.pythontutorial.net/python-basics/python-read-text-file/
 # cmd+shift+7 for '#'
 
-
-
-gamestate = {}
-commands = {}
-gamestate['inventory'] = []
-
-
-
-
 rooms = {
     'captains quarters': {'name': 'captains quarters', 'roomchoice': 'deck', 'item': 'crowbar', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[7]},
     'kitchen': {'name': 'kitchen', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[9]},
@@ -36,7 +27,9 @@ command_switch = {
 }
 
 
-
+gamestate = {}
+commands = {}
+gamestate['inventory'] = []
 gamestate['current location'] = rooms['captains quarters']
 
 
