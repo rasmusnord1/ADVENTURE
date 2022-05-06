@@ -21,17 +21,18 @@ gamestate['inventory'] = []
 
 
 rooms = {
-    'captains quarters': {'name': 'captains quarters', 'roomchoice': 'deck', 'item': 'crowbar', 'desc' : line[7]},
-    'kitchen': {'name': 'kitchen', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'desc' : line[9]},
-    'sleeping quarters': {'name': 'sleeping quarters', 'roomchoice': ['kitchen','engine room', 'deck'], 'item': '[TEXT]', 'desc' : line[11]},
-    'engine room': {'name': 'engine room', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'desc' : line[13]},
-    'deck': {'name': 'deck', 'roomchoice': ['captains quarters', 'sleeping quarters'], 'item': '[TEXT]', 'desc' : line[15]}
+    'captains quarters': {'name': 'captains quarters', 'roomchoice': 'deck', 'item': 'crowbar', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[7]},
+    'kitchen': {'name': 'kitchen', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[9]},
+    'sleeping quarters': {'name': 'sleeping quarters', 'roomchoice': ['kitchen','engine room', 'deck'], 'item': '[TEXT]', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[11]},
+    'engine room': {'name': 'engine room', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[13]},
+    'deck': {'name': 'deck', 'roomchoice': ['captains quarters', 'sleeping quarters'], 'item': '[TEXT]', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[15]}
 }
 command_switch = {
     ('pickup','pick-up','take','get','grab'):'take',
     ('use','apply','operate'):'use',
     ('go','walk','run','leave','climb'):'go',
-    ('look','inspect','view','l'):'look'
+    ('look','inspect','view'):'look',
+    ('turn', 'put'):'turn'
 }
 
 
@@ -39,40 +40,29 @@ command_switch = {
 cur_location = rooms['captains quarters']
 
 def dialogue():
-    return
+    Repeat = True
+    return Repeat
 
 def parse_input(text_input):
     words = text_input.split(' ')
-    helper_commands = ['at','to','in','through','by','the','and','but','inside','toward','outside','inside']
+    helper_commands = ['at','to','in','through','by','the','and','but','toward','outside','inside','down','up']
     for word in words[:]:
         if word in helper_commands: 
             words.remove(word)
     for command in command_switch:
         if words[0] in command:
             # if och sen för att använda ett item på en annan sak.
-            text_output = f'{command_switch[command]} {" ".join(words[1:])}'
+            text_output = f'{command_switch[command]} {" ".join(words[1:])}' # använda command_switch?
             ri_output = " ".join(words[1:])
-            print(text_output)
-            return text_output, ri_output
+            # print(ri_output)
+            # print(text_output)
+            return text_output#, ri_output # kanske användbart.
 
 
-            # if '{}'.format(cur_location['item']) in text_input:
-            #     ri_output = '{}'.format(cur_location['item'])
-            #     print('{}'.format(commands[command]))
-            #     return commands[command], ri_output
-            # for roomcheck in rooms[cur_location['name']] or rooms[cur_location['roomchoice']]:
-            #     if roomcheck in text_input:
-            #         ri_output = roomcheck
-            #         return commands[command], ri_output
-
-            # return 
-            # output = f'{commands[command]} {" ".join(words[1:])}'
-
-            # print(output)
-            # return output, None
 
 def usage_error():
-    print('You cannot do that here')
+    input('\nYou cannot do that here')
+    return #dialogue
 
 def can_pickup_item(text_output):
     print(f'{text_output}' == f"take {cur_location['item']}")
@@ -86,22 +76,37 @@ def pickup_item(text_output):
             print(f"You've already picked up {cur_item}.")
             return
         gamestate['inventory'].append(cur_item)
-        print(f"You picked up the {cur_item}.")
+        input(f"\nYou picked up the {cur_item}.")
         cur_location['item'] = 'nothing'
     else:
         return usage_error()
 
 
-def can_use_item(text_output, gamestate):
-    if gamestate: #inte klar
-        return 
-
 def use_item(text_output, gamestate):
-    if can_use_item(text_output, gamestate):
-        print('[TRIGGER] use item') #inte klar
-    if gamestate['current location'] == 'deck':
-        gamestate['inventory'].remove('crowbar')
-        print(line[...])
+    words = text_output.split()
+    if words[1] in gamestate['inventory']:
+        if 'use' and 'on' in words:
+            if words[1] == cur_location['useitem']:
+                if words[3] == cur_location['use_item_on']:
+                    input(f"You succesfully used your {words[1]} on the {words[3]}.")
+                    gamestate['inventory'].remove([words[1]])
+                    Success = cur_location['item_succes'] = True
+                    return Success
+                input("\nNothing happened.")
+                return #dialogue
+            input("\nYou cannot use that item here.")
+            return #dialogue
+        input("\nYou have to specify what to use the item on.")
+        return #dialogue
+    input("\nYou don't have that item in your inventory.")
+    return #dialogue
+
+# def use_item(text_output, gamestate):
+#     if can_use_item(text_output, gamestate):
+#         print('[TRIGGER] use item') #inte klar
+#     if gamestate['current location'] == 'deck':
+#         gamestate['inventory'].remove('crowbar')
+#         print(line[...])
 
 def can_goto_location(text_output):
     words = text_output.split()
@@ -117,8 +122,15 @@ def goto_location(text_output):
         words = text_output.split()
         print(words)
         cur_location = rooms[' '.join(words[1:])]
-        print(f"You walk to the {cur_location['name']}") 
-        return dialogue
+        print(cur_location)
+        input(f"\nYou walk to the {cur_location['name']}") 
+        return cur_location
+    return usage_error()
+
+#Room-specific tasks
+def radio(text_output):
+    if 'on' and 'radio' in text_output:
+        input(f"\n{''.join(line[20])}")
 
 
 
@@ -146,40 +158,55 @@ print(cur_location['roomchoice'])
 # #    main_menu()
 #     print(f'\n\n{line[0]}')
 
+input(f"\n\n{''.join(line[1:4])} \nPress enter to continue.")
 
 #     # current location 
 #     cur_location = 'captains quarters'
-N = True
+Repeat = True
 #def main_game():
-while N == True:
+while Repeat == True:
 #        print('You are in the {}.'.format(cur_location['name'], ))  # Print current location
 #        print('This room contains {}.'.format(cur_location['item'], ))  # Print the item in the locations, BEHÖVS NOG INTE
-        input(f"\n\n{''.join(line[1:4])} \nPress enter to continue.")
         
-        print('\n'*7 + f"You are in the {(cur_location['name'])}.\n{''.join(cur_location['desc'])}")
+        print('\n'*7 + f"You are in/on the {(cur_location['name'])}.\n{''.join(cur_location['desc'])}")
         
-        text_output, ri_output = parse_input(input('\n\nWhat would you like to do?\n>> '))
-        
-        if text_output == 'take item':
-            pickup_item(text_output)
-        elif text_output == 'use item':
-            use_item(text_output)
-        else:
+        text_output = parse_input(input('\n\nWhat would you like to do?\n>> ').lower())
+        print('_____')
+        print(text_output)
+        if text_output == None:
+            usage_error()
+        elif 'go' in text_output:
             goto_location(text_output)
+        elif 'take' in text_output:
+            pickup_item(text_output)
+        elif 'use' in text_output:
+            use_item(text_output, gamestate)
+        elif 'turn' in text_output:
+            radio(text_output)
+        else:
+            usage_error()
         
-        N = False
+        print(cur_location['name'])
+        print(cur_location['item'])
+        print(cur_location['use_item_on'])
+        print(cur_location['roomchoice'])
+        
+        # Gamla commands av Linus:
+        #
+        # commands['take item'] = {
+        #     'perform': pickup_item(text_output)
+        # }
+        # commands['use item'] = {
+        #     'perform': use_item(text_output, gamestate)
+        # }
 
-commands['take item'] = {
-    'perform': pickup_item(text_output)
-}
-# commands['use item'] = {
-#     'perform': use_item()
-# }
-
-commands['goto location'] = {
-    'perform': goto_location(text_output)
-}
+        # commands['goto location'] = {
+        #     'perform': goto_location(text_output)
+        # }
+        # 
+        # Dessa går igenom en efter en. Vet inte hur de fungerar. 
+        # If fungerar minst lika bra, men commands är kanske är snabbare. 
+        #  - error från commands kommer före if (tror jag).
 
 
-
-#print(main())
+        #print(main())

@@ -5,7 +5,7 @@ You look down at the surprisingly empty deck and realize that you are in the cap
 
 Room descriptions:
     captains quarters:
-The captain’s quarters are relatively small, with sparse decorations. Apart from the small bed in the corner, there is a desk with papers strewn all over it. Beside it, there is a radio. Behind you, there is a door which leads down to the deck.
+The captain’s quarters are relatively small, with sparse decorations. Apart from the small bed in the corner, there is a desk with papers strewn all over it. Beside it, there is a radio. Behind you, there is a door which leads down to the deck. There is also a crowbar on the ground. Maybe try using it on fridge.
     kitchen:
 
     sleeping quarters:
@@ -15,12 +15,39 @@ The captain’s quarters are relatively small, with sparse decorations. Apart fr
     deck:
 The cold, humid air hits you as you walk out on the deck. It is quiet and nothing suggests that there is anyone else there. Farther away, a large stack of shipping containers stands. You don’t remember what the ship is supposed to be carrying, or maybe you didn’t ask. Closer to you, an identical shipping container stands on its own. It has stood there for the entire journey, but you never asked why it isn’t near the other containers or what it contains. The doors are locked with a sturdy but rusty chain. All the lifeboats seem to have disappeared. However, the ship is old and still has one old metal lifeboat left. They apparently didn’t remove it when they renovated the ship.
 
+Room specific:
+    captains quarters:
+        radio:
+The radio starts playing All Star - Smash Mouth.
+        papers:
 
 
-You cannot do that here.
-You cannot do that here.
-You cannot do that here.
-You cannot do that here.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -95,3 +95,29 @@
     #          if invalid command is given
     #         print('The loneliness of this place must be getting to you. Please try something else.')
     # print()
+
+
+
+
+
+
+
+
+
+
+
+
+                # if '{}'.format(cur_location['item']) in text_input:
+            #     ri_output = '{}'.format(cur_location['item'])
+            #     print('{}'.format(commands[command]))
+            #     return commands[command], ri_output
+            # for roomcheck in rooms[cur_location['name']] or rooms[cur_location['roomchoice']]:
+            #     if roomcheck in text_input:
+            #         ri_output = roomcheck
+            #         return commands[command], ri_output
+
+            # return 
+            # output = f'{commands[command]} {" ".join(words[1:])}'
+
+            # print(output)
+            # return output, None
