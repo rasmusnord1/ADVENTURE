@@ -55,13 +55,23 @@ The radio starts playing All Star - Smash Mouth.
 
 
 Help section:
+––––––––––––––––––––––––––––––––––––––––––––––––––––––
+You need help? Too stupid?
 
-You need help?
+Commands:
+
+'take/pickup/grab [item]'
+'use [item] on [use_item_on]'
+'walk/go/run to the [new location]'
+
+You can also look at room-specific things by using:
+'look/l at [room-specific thing]'
 
 
 
 
 
+––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
 

@@ -12,7 +12,7 @@ line = file.readlines()
 # cmd+shift+7 for '#'
 
 rooms = {
-    'captains quarters': {'name': 'captains quarters', 'roomchoice': 'deck', 'item': 'crowbar', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[7]},
+    'captains quarters': {'name': 'captains quarters', 'roomchoice': 'deck', 'item': 'crowbar', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[7], 'lookat' : ['papers','radio']},
     'kitchen': {'name': 'kitchen', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[9]},
     'sleeping quarters': {'name': 'sleeping quarters', 'roomchoice': ['kitchen','engine room', 'deck'], 'item': '[TEXT]', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[11]},
     'engine room': {'name': 'engine room', 'roomchoice': 'sleeping quarters', 'item': '[TEXT]', 'useitem' : 'crowbar', 'use_item_on': 'fridge', 'desc' : line[13]},
@@ -22,8 +22,9 @@ command_switch = {
     ('pickup','pick-up','take','get','grab'):'take',
     ('use','apply','operate'):'use',
     ('go','walk','run','leave','climb'):'go',
-    ('look','inspect','view'):'look',
-    ('turn', 'put'):'turn'
+    ('look','inspect','view','l'):'look',
+    ('help','h','hjälp'):'help'
+    # (None):'N/A'
 }
 
 
@@ -69,11 +70,12 @@ def pickup_item(text_output):
         gamestate['inventory'].append(cur_item)
         input(f"\nYou picked up the {cur_item}.")
         gamestate['current location']['item'] = 'nothing'
+        return main()
     else:
         return usage_error()
 
 
-def use_item(text_output, gamestate):
+def use_item(text_output):
     words = text_output.split()
     if words[1] in gamestate['inventory']:
         if 'use' and 'on' in words:
@@ -109,7 +111,7 @@ def can_goto_location(text_output):
         print(' '.join(words[1:]) in gamestate['current location']['roomchoice'])
         return ' '.join(words[1:]) in gamestate['current location']['roomchoice']
 
-def goto_location(text_output, gamestate):
+def goto_location(text_output):
     if can_goto_location(text_output):
         words = text_output.split()
         print(words)
@@ -118,11 +120,18 @@ def goto_location(text_output, gamestate):
         return main()
     return usage_error()
 
+def help():
+    input(''.join(line[57:70]))
+    return main()
+
+
 #Room-specific tasks
-def radio(text_output):
-    if 'on' and 'radio' in text_output:
+def look_check(text_output):
+    itemlocation_check = text_output in gamestate['current location']['lookat']
+    if itemlocation_check and 'radio' in text_output:
         input(f"\n{''.join(line[20])}")
         return main()
+    return usage_error()
 
 
 
@@ -143,30 +152,46 @@ def main():
         cur_location = gamestate['current location']
         print('\n'*7 + f"You are in/on the {cur_location['name']}.\n{''.join(cur_location['desc'])}")
         
-        print(cur_location['name'])
-        print(cur_location['item'])
-        print(cur_location['use_item_on'])
-        print(cur_location['roomchoice'])
+        # print(cur_location['name'])
+        # print(cur_location['item'])
+        # print(cur_location['use_item_on'])
+        # print(cur_location['roomchoice'])
 
-        text_output = parse_input(input('\n\nWhat would you like to do?\n>> ').lower())
-        print('_____')
-        print(text_output)
+        text_output = parse_input(input("Type 'help' for help.\n\nWhat would you like to do?\n>> ").lower())
+
         if text_output == None:
             return usage_error()
-        elif 'go' in text_output:
-            return goto_location(text_output, gamestate)
+        
+
+        # Eftersom commands inte funkade:
+        if text_output == None:
+            return usage_error()
+        if 'go' in text_output:
+            return goto_location(text_output)
         elif 'take' in text_output:
             return pickup_item(text_output)
         elif 'use' in text_output:
-            return use_item(text_output, gamestate)
-        elif 'turn' in text_output:
-            return radio(text_output)
-        else:
-            usage_error()
-        return
+            return use_item(text_output)
+        elif 'look' in text_output:
+            return look_check(text_output)
+        elif 'help' in text_output:
+            return help()
+        return usage_error()
 
 
+        # alt:
+        #         cmd_options = {'go': goto_location(text_output), 'take': pickup_item(text_output), 'use': use_item(text_output), 'look': look_check(text_output), 'help': help()}        
+        # print(cmd_options[text_output.split()[0]])
+        # print(cmd_options['help'])
+        # if text_output.split()[0] in cmd_options:
+        #     return cmd_options[text_output.split()[0]]
+        # else:
+        #     return usage_error()
+        # Från: https://stackoverflow.com/questions/17166074/most-efficient-way-of-making-an-if-elif-elif-else-statement-when-the-else-is-don 
 
+
+input(f"\n\n{''.join(line[1:4])} \nPress enter to continue.")
+main()
 
 
 
@@ -174,8 +199,6 @@ def main():
 # #    main_menu()
 #     print(f'\n\n{line[0]}')
 
-input(f"\n\n{''.join(line[1:4])} \nPress enter to continue.")
-main()
 
 #     # current location 
 #     cur_location = 'captains quarters'
