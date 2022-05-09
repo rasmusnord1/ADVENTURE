@@ -46,12 +46,10 @@ def parse_input(text_input):
             words.remove(word)
     for command in command_switch:
         if words[0] in command:
-            # if och sen för att använda ett item på en annan sak.
-            user_input = f'{command_switch[command]} {" ".join(words[1:])}' # använda command_switch?
-            # ri_output = " ".join(words[1:])
-            # print(ri_output)
+            user_input = f'{command_switch[command]} {" ".join(words[1:])}' 
+            #rest_input = " ".join(words[1:])
             print(user_input)
-            return user_input#, ri_output # kanske användbart.
+            return user_input#, rest_input # kanske användbart.
 
 
 
@@ -66,14 +64,12 @@ def usage_error():
 
 def can_pickup_item(user_input):
     item_from_input = "".join(user_input.split()[1:])
-    print("item from input: ", item_from_input)
     if gamestate['current location']['item'] == '':
         return usage_error()
     elif item_from_input in gamestate['items taken']:
         input(f"You've already picked up {item_from_input}.")
         return main()
     could_pickup_item = item_from_input in gamestate['current location']['item']
-    print(could_pickup_item)
     return could_pickup_item
 
 def pickup_item(user_input):
@@ -143,29 +139,34 @@ def help():
 
 #Room-specific tasks
 def look_check(user_input):
-    lookat = user_input.split()[1:]
-    itemlocation_check = "".join(lookat) in gamestate['current location']['lookat']
-    print(lookat)
+    lookat_input = user_input.split()[1:]
+    itemlocation_check = "".join(lookat_input) in gamestate['current location']['lookat']
+    print(lookat_input)
     print(itemlocation_check)
-    if itemlocation_check and 'radio' in user_input:
-        input(f"\n{''.join(line[20])}")
-        return main()
-    elif itemlocation_check and 'desk' or 'papers' in user_input:
-        if 'crowbar' in gamestate['items taken']:
-            input("You've already picked that shit up dawg cmon man do you have a bad memory? Are stewpid? INIT?")
+    if itemlocation_check:
+        if 'radio' in user_input:
+            input(f"\n{''.join(line[20])}")
             return main()
-        input(''.join(line[22]))
-        return main()
+        elif itemlocation_check and 'desk' or 'papers' in user_input:
+            # 
+            input(''.join(line[22]))
+            return main()
+        
     return usage_error()
+
+# if 'crowbar' in gamestate['items taken']:
+#     input("You've already picked that shit up dawg cmon man do you have a bad memory? Are stewpid? INIT?"), main()
 
 def death(user_input):
     words = user_input.split()
     print(words[0])
     print('use' and 'lifeboat' in words)
     print(gamestate['current location']['name'] == 'deck')
-    if 'use' and 'lifeboat' in words and gamestate['current location']['name'] == 'deck': 
-        print('you died lmao')
-        return 
+    if 'lifeboat' in words: 
+        if gamestate['current location']['name'] == 'deck': 
+            input('\nyou died lmao')
+            return main()
+        return usage_error()
 
 # TESTING
 print(gamestate['current location']['item'])
@@ -192,6 +193,7 @@ def main():
     user_input = parse_input(input("Type 'help' for help.\n\nWhat would you like to do?\n>> ").lower())
 
     print(user_input)
+    # print(rest_input)
     if user_input == None:
         return usage_error()
     print('bing1') 

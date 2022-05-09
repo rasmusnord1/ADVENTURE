@@ -1,10 +1,25 @@
 # file = open('Text_support.txt')
 # line = file.readlines()
 
-text_input = 'go'
-cmd_options = {'go': print("user_input")}        
-if text_input in cmd_options:
-    cmd_options[text_input]
+# text_input = 'go'
+# cmd_options = {}
+
+
+
+# cmd_options['go'] = {
+#             'perform': print("shit go")
+#         }
+# cmd_options['use item'] = {
+#             'perform': print('shit went')
+#         }
+
+# cmd_options['goto location'] = {
+#     'perform': print('shit gone')
+#         }
+
+# print('go' in cmd_options)
+
+
 
 #–––––––––––––––––––––––––––––––––––––––––––––––––––
 # 
