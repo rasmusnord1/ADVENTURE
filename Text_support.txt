@@ -5,23 +5,22 @@ You look down at the surprisingly empty deck and realize that you are in the cap
 
 Room descriptions:
     captains quarters:
-The captain’s quarters are relatively small, with sparse decorations. Apart from the small bed in the corner, there is a desk with papers strewn all over it. Beside it, there is a radio. Behind you, there is a door which leads down to the deck. There is also a crowbar on the ground. Maybe try using it on fridge.
+The captain’s quarters are relatively small, with sparse decorations. Apart from the small bed in the corner, there is a desk with papers strewn all over it. Beside it, there is a radio. Behind you, there is a door which leads down to the deck.
     kitchen:
-
+The kitchen is as lifeless as the rest of the ship. The large dinner table is set, but there is no food layed out. At the other side of the room, there is a fridge. A ladder in the corner leads to the sleeping quarters. The only door in the room leads to the deck.
     sleeping quarters:
-
+Beds for the crew lines the walls. The room is dimly lit, but you can still see how every bed is unmade. All of the crews belongings are seemily untouched. There is a small staircase that leads down to the engine room. There is also a ladder which leads up to the kitchen.
     engine room:
-
+The engine room is colder than it usually is, and it us . The engine seemes to be off. In front of you, there is a fuse box. There are no other exits other than the staircase back to the sleeping quarters.
     deck:
-The cold, humid air hits you as you walk out on the deck. It is quiet and nothing suggests that there is anyone else there. Farther away, a large stack of shipping containers stands. You don’t remember what the ship is supposed to be carrying, or maybe you didn’t ask. Closer to you, an identical shipping container stands on its own. It has stood there for the entire journey, but you never asked why it isn’t near the other containers or what it contains. The doors are locked with a sturdy but rusty chain. All the lifeboats seem to have disappeared. However, the ship is old and still has one old metal lifeboat left. They apparently didn’t remove it when they renovated the ship.
-
+The cold, humid air hits you as you walk out on the deck. It is quiet and nothing suggests that there is anyone else there. Farther away, a large stack of shipping containers stands. You don’t remember what the ship is supposed to be carrying, or maybe you didn’t ask. Closer to you, an identical shipping container stands on its own. It has stood there for the entire journey, but you never asked why it isn’t near the other containers or what it contains. The doors are locked with a sturdy but rusty chain. All the lifeboats seem to have disappeared. However, the ship is old and still has one old metal lifeboat left. They apparently didn’t remove it when they renovated the ship. There is a door which leads to the kitchen. There is also a staircase which leads to the captain's quarters.
+16
 Room specific:
     captains quarters:
         radio:
-The radio starts playing All Star - Smash Mouth.
+Since there is a power outage, the radio doesn't work.
         papers:
-
-
+There are a few papers strewn on the desk, but nothing seems important.
 
 
 
@@ -60,12 +59,12 @@ You need help? Too stupid?
 
 Commands:
 
-'take/pickup/grab [item]'
-'use [item] on [use_item_on]'
-'walk/go/run to the [new location]'
+'take/pickup/grab/t [item]'
+'use/u [item] on [use_item_on]'
+'walk/go/run/g to the [new location]'
 
-You can also look at room-specific things by using:
-'look/l at [room-specific thing]'
+You can also look around the room, or at room-specific things by using:
+'look/l at [text]'
 
 
 

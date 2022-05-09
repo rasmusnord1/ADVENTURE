@@ -1,8 +1,10 @@
 # file = open('Text_support.txt')
 # line = file.readlines()
 
-
-
+text_input = 'go'
+cmd_options = {'go': print("user_input")}        
+if text_input in cmd_options:
+    cmd_options[text_input]
 
 #–––––––––––––––––––––––––––––––––––––––––––––––––––
 # 
