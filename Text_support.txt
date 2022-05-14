@@ -15,11 +15,11 @@ The engine room is colder than it usually is, and it us . The engine seemes to b
     deck:
 The cold, humid air hits you as you walk out on the deck. It is quiet and nothing suggests that there is anyone else there. Farther away, a large stack of shipping containers stands. You don’t remember what the ship is supposed to be carrying, or maybe you didn’t ask. Closer to you, an identical shipping container stands on its own. It has stood there for the entire journey, but you never asked why it isn’t near the other containers or what it contains. The doors are locked with a sturdy but rusty chain. All the lifeboats seem to have disappeared. However, the ship is old and still has one old metal lifeboat left. They apparently didn’t remove it when they renovated the ship. There is a door which leads to the kitchen. There is also a staircase which leads to the captain's quarters.
 
-Room specific:
+Room specific items:
     captains quarters:
         radio:
 Since there is a power outage, the radio doesn't work.
-        papers:
+        desk, papers:
 There are a few papers strewn on the desk, but nothing seems important.
         bed:
 The bed looks way more comfortable than the ones that the rest of the crew uses.
@@ -33,7 +33,7 @@ You look inside the bag. Inside, there is a lot of junk, but you see the glimmer
         engine:
 The engine is cold and silent. It seemes to have been turned off for a while. You don't have the technical skills to fix it.
         fuse box:
-You open the fuse box. Everything seems in order, exept for a missing fuse. At closer ispection, you see that the missing fuse is the main fuse. That explains the power outage. Where could the fuse be?
+You open the fuse box. Everything seems in order, except for a missing fuse. At closer ispection, you see that the missing fuse is the main fuse. That explains the power outage. Where could the fuse be?
         closed locker:
 You try to open the locker, but unfortunately, it's locked.
         open locker:

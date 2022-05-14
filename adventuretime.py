@@ -1,5 +1,5 @@
 import numbers
-from gamestate import *
+#from gamestate import *
 # import time
 
 file = open('Text_support.txt')
@@ -16,10 +16,10 @@ line = file.readlines()
 # glum inte adda gamestate till definitioner som kräver det :)
 
 rooms = {
-    'captains quarters': {'name': 'captains quarters', 'roomchoice': 'deck', 'item': '', 'useitem' : '', 'use_item_on': '', 'desc' : line[7], 'lookat' : ['papers','radio','desk']},
-    'kitchen': {'name': 'kitchen', 'roomchoice': 'sleeping quarters', 'item': 'crowbar', 'useitem' : '', 'use_item_on': '', 'desc' : line[9], 'lookat' : ['corner']},
+    'captains quarters': {'name': 'captains quarters', 'roomchoice': ['deck'], 'item': '', 'useitem' : '', 'use_item_on': '', 'desc' : line[7], 'lookat' : ['papers','radio','desk','bed']},
+    'kitchen': {'name': 'kitchen', 'roomchoice': ['sleeping quarters', 'deck'], 'item': 'crowbar', 'useitem' : '', 'use_item_on': '', 'desc' : line[9], 'lookat' : ['corner']},
     'sleeping quarters': {'name': 'sleeping quarters', 'roomchoice': ['kitchen','engine room', 'deck'], 'item': 'key', 'useitem' : '', 'use_item_on': '', 'desc' : line[11], 'lookat' : ['bag']},
-    'engine room': {'name': 'engine room', 'roomchoice': 'sleeping quarters', 'item': 'toolbox', 'useitem' : ['key','fuse'], 'use_item_on': ['locker', 'fuse box'], 'desc' : line[13]}, 'lookat' : ['engine','fuse box','locker'],
+    'engine room': {'name': 'engine room', 'roomchoice': ['sleeping quarters'], 'item': 'toolbox', 'useitem' : ['key','fuse'], 'use_item_on': ['locker', 'fuse box'], 'desc' : line[13]}, 'lookat' : ['engine','fuse box','locker'],
     'deck': {'name': 'deck', 'roomchoice': ['captains quarters', 'kitchen'], 'item': 'fuse', 'useitem' : ['toolbox','crowbar'], 'use_item_on': ['lifeboat','shipping container'], 'desc' : line[15], 'lookat' : ['lifeboat, shipping container']}
 }
 command_switch = {
@@ -38,6 +38,7 @@ gamestate['inventory'] = []
 gamestate['current location'] = rooms['captains quarters']
 gamestate['items taken'] = []
 
+# from parse_input import *
 
 def parse_input(text_input):
     words = text_input.split(' ')
@@ -49,15 +50,24 @@ def parse_input(text_input):
         if words[0] in command:
             user_input = f'{command_switch[command]} {" ".join(words[1:])}' 
             #rest_input = " ".join(words[1:])
-            print(user_input)
             return user_input#, rest_input # kanske användbart.
 
-
+def end(ending_type):
+    if ending_type == 'GOOD':
+        print('shit')
+    elif ending_type == 'NEUTRAL':
+        print('shit')
+    elif ending_type == 'BAD':
+        input(line_join(48))
+    
+    return quit()
 
 def usage_error():
     input('\nYou cannot do that here')
     return main()
 
+def line_join(number):
+    return f"\n{''.join(line[int(number)])}"
 
 # def can_pickup_item(item_to_pickup, gamestate):
 
@@ -74,11 +84,8 @@ def can_pickup_item(user_input):
     return could_pickup_item
 
 def pickup_item(user_input):
-    print('bing1')
-
     if can_pickup_item(user_input):
         item_from_input = "".join(user_input.split()[1:])
-        print('bing')
         gamestate['inventory'].append(item_from_input)
         gamestate['items taken'].append(item_from_input)
         input(f"\nYou picked up the {item_from_input}.")
@@ -87,17 +94,45 @@ def pickup_item(user_input):
         return usage_error()
 
 
+def use_item_success(item_used):
+    item_text_list = {'crowbar': line_join(20), 'fuse': line_join(22), 'papers': line_join(22), 'bed': line_join(24)}
+    item_action_list = ['fuse','toolbox', 'key']
+    
+    input(item_text_list[item_used]) # Tror nog allt måste vara if-satser, då det inte går att appenda typ toolbox från input "key" i dictionary
+    if item_used in item_action_list:
+        if item_used == 'fuse':
+            return main()
+        elif item_used == 'key':
+            gamestate['inventory'].append('toolbox')
+            gamestate['items taken'].append('toolbox')
+            input(f"\nYou picked up the toolbox.")
+
+    return main()
+
 def use_item(user_input):
     death(user_input)
     words = user_input.split()
+    if len(words) == 1:
+        return usage_error()
+    item_used_from_input = words[1]
+    object_used_on_from_input = (' ').join(words[3:])
+    
+    # print("Following statements:\nwords[1] in gamestate['current location']['useitem']\nitem_index = gamestate['current location']['useitem'].index(words[1])\nwords[3] == gamestate['current location']['use_item_on'][item_index]\n")
+    # print(words[1] in gamestate['current location']['useitem'])
+    # item_index = gamestate['current location']['useitem'].index(words[1])
+    # print(item_index)
+    # print("gamestate: "+gamestate['current location']['use_item_on'][item_index])
+    # print("from input: "+ (' ').join(words[3:]))
+    # print((' ').join(words[3:]) == gamestate['current location']['use_item_on'][item_index])
+
     if words[1] in gamestate['inventory']:
         if 'use' and 'on' in words:
-            if words[1] == gamestate['current location']['useitem']:
-                if words[3] == gamestate['current location']['use_item_on']:
-                    print(words, words[1], gamestate['inventory'])
-                    input(f"\nYou succesfully used your {words[1]} on the {words[3]}.")
-                    gamestate['inventory'].remove(words[1])
-                    # Success = gamestate['current location']['item_succes'] = True
+            if item_used_from_input in gamestate['current location']['useitem']:
+                item_object_combination_check = gamestate['current location']['useitem'].index(item_used_from_input)
+                if object_used_on_from_input == gamestate['current location']['use_item_on'][item_object_combination_check]:
+                    input(f"\nYou succesfully used your {item_used_from_input} on the {object_used_on_from_input}.")
+                    gamestate['inventory'].remove(item_used_from_input)
+                    use_item_success(item_used_from_input)
                     return main()
                 input("\nNothing happened.")
                 return main()
@@ -117,72 +152,54 @@ def use_item(user_input):
 
 def can_goto_location(user_input):
     words = user_input.split()
-    print(words[0])
     if words[0] == 'go':
-        print(' '.join(words[1:]))
-        print(gamestate['current location']['roomchoice'])
-        print(' '.join(words[1:]) in gamestate['current location']['roomchoice'])
-        return ' '.join(words[1:]) in gamestate['current location']['roomchoice']
+        input_in_roomchoice_check = ' '.join(words[1:]) in gamestate['current location']['roomchoice']
+        return input_in_roomchoice_check # Trash namn
 
 def goto_location(user_input):
     if can_goto_location(user_input):
         words = user_input.split()
-        print(words)
         gamestate['current location'] = rooms[' '.join(words[1:])]
         input(f"\nYou walk to the {gamestate['current location']['name']}") 
         return main()
     return usage_error()
 
-def help():
+def help(preventTypeError):
     input(''.join(line[57:70]))
     return main()
 
-def line_join(number):
-    return f"\n{''.join(line[number])}"
 
 #Room-specific tasks
 def look_check(user_input):
-    print(user_input)
     lookat_input = user_input.split()[1:]
     lookat_input_text = "".join(lookat_input)
     itemlocation_check = lookat_input_text in gamestate['current location']['lookat']
-    print(lookat_input)
-    print(itemlocation_check)
     
     lookat_list = {'radio': line_join(20), 'desk': line_join(22), 'papers': line_join(22), 'bed': line_join(24)}
 
-    if itemlocation_check and lookat_input_text in lookat_list:
-        input(lookat_list[lookat_input_text])
-        # if 'radio' in user_input:
-        #     x = 20
-        #     input(line_join(20))
-        # elif 'desk' or 'papers' in user_input:
-        #     x = 22
-        #     input(line_join(22))
-        # elif 'bed' in user_input:
-        #     x = 24
-        #     input(line_join(20))
-    else:
-        return usage_error()
-    return main()
+    if itemlocation_check:
+        if lookat_input_text in lookat_list:
+            input(lookat_list[lookat_input_text])
+            return main()
+        elif lookat_input_text == 'corner' and 'crowbar' not in gamestate['items taken']:
+            input(line_join(27))
+            return main()
+        elif lookat_input_text == 'bag' and 'key' not in gamestate['items taken']:
+            input(line_join) # NOT DONE
+            return main()
+    return usage_error()
 
 # if 'crowbar' in gamestate['items taken']:
 #     input("You've already picked that shit up dawg cmon man do you have a bad memory? Are stewpid? INIT?"), main()
 
 def death(user_input):
-    words = user_input.split()
-    print(words[0])
-    print('use' and 'lifeboat' in words)
-    print(gamestate['current location']['name'] == 'deck')
-    if 'lifeboat' in words: 
+    if 'use lifeboat' in user_input: 
         if gamestate['current location']['name'] == 'deck': 
-            input('\nyou died lmao')
-            return main()
+            return end('BAD')
         return usage_error()
 
 # TESTING
-print(gamestate['current location']['item'])
-print(gamestate['current location']['roomchoice'])
+
 # def goto_location(ri_output):
 #     print(ri_output)
 #     if ri_output in rooms[cur_location['roomchoice']]:
@@ -196,26 +213,16 @@ print(gamestate['current location']['roomchoice'])
 def main():
     cur_location = gamestate['current location']
     print('\n'*7 + f"{cur_location['name'].capitalize()}\n\n{''.join(cur_location['desc'])}")
-    
-    # print(cur_location['name'])
-    # print(cur_location['item'])
-    # print(cur_location['use_item_on'])
-    # print(cur_location['roomchoice'])
+    # print(line_join(52))
 
     gamestate['last_user_input'] = parse_input(input("Type 'help' for help.\n\nWhat would you like to do?\n>> ").lower())
 
-
-    # print(rest_input)
     if gamestate['last_user_input'] == None:
-        return main()
-    print('bing1') 
+        return usage_error()
 
     cmd_options = {'go': goto_location, 'take': pickup_item, 'use': use_item, 'look': look_check, 'help': help}
 
-    print(gamestate['last_user_input'] + "shit")
     first_word_in_input = "".join(gamestate['last_user_input'].split()[0])
-    print('bing2')
-    print(first_word_in_input)
 
     if first_word_in_input in cmd_options:
         return cmd_options[first_word_in_input](gamestate['last_user_input'])
@@ -256,7 +263,6 @@ def main():
 
 input(f"\n\n{''.join(line[1:4])} \nPress enter to continue.")
 main()
-
 
 
 # def main(): #kanske ta bort funktionen
