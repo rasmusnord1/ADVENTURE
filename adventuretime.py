@@ -45,6 +45,7 @@ def parse_input(text_input):
             #rest_input = " ".join(words[1:])
             return user_input#, rest_input # kanske användbart.
 
+
 def inventory_check(preventTypeError):
     if gamestate['inventory'] == []:
         input('\nYou have nothing in your inventory.')
@@ -63,16 +64,15 @@ def end(ending_type):
         input(line_join(64))
     return quit()
 
+
 def usage_error():
     input('\nYou cannot do that here')
     return main()
 
+
 def line_join(number):
     return f"\n{''.join(line[int(number)])}"
 
-def can_pickup_item(item_to_pickup, gamestate):
-
-    return True
 
 def can_pickup_item(user_input):
     item_from_input = "".join(user_input.split()[1:])
@@ -123,14 +123,6 @@ def use_item(user_input):
     item_used_from_input = words[1]
     object_used_on_from_input = (' ').join(words[3:])
     
-    # print("Following statements:\nwords[1] in gamestate['current location']['useitem']\nitem_index = gamestate['current location']['useitem'].index(words[1])\nwords[3] == gamestate['current location']['use_item_on'][item_index]\n")
-    # print(words[1] in gamestate['current location']['useitem'])
-    # item_index = gamestate['current location']['useitem'].index(words[1])
-    # print(item_index)
-    # print("gamestate: "+gamestate['current location']['use_item_on'][item_index])
-    # print("from input: "+ (' ').join(words[3:]))
-    # print((' ').join(words[3:]) == gamestate['current location']['use_item_on'][item_index])
-
     if words[1] in gamestate['inventory']:
         if 'use' and 'on' in words:
             if item_used_from_input in gamestate['current location']['useitem']:
@@ -149,12 +141,6 @@ def use_item(user_input):
     input("\nYou don't have that item in your inventory.")
     return main()
 
-            # def use_item(user_input, gamestate):
-                # if can_use_item(user_input, gamestate):
-                #     print('[TRIGGER] use item') #inte klar
-                # if gamestate['current location'] == 'deck':
-                #     gamestate['inventory'].remove('crowbar')
-                #     print(line[...])
 
 def can_goto_location(user_input):
     words = user_input.split()
@@ -170,6 +156,7 @@ def goto_location(user_input):
         return main()
     return usage_error()
 
+
 def help(preventTypeError):
     input("\n"*3 + ''.join(line[68:81]))
     return main()
@@ -181,6 +168,7 @@ def look_check(user_input):
     itemlocation_check = lookat_input_text in gamestate['current location']['lookat']
 
     lookat_object_list = {'desk': line_join(22), 'papers': line_join(22), 'bed': line_join(24), 'corner': line_join(27), 'engine': line_join(33), 'fusebox': line_join(35), 'lifeboat': line_join(42)}
+    
     if itemlocation_check:
         if lookat_input_text in lookat_object_list:
             input(lookat_object_list[lookat_input_text])
@@ -213,7 +201,6 @@ def look_check(user_input):
     return main()
 
 
-
 def ending_check(user_input):
     if 'use lifeboat' in user_input: 
         if gamestate['current location']['name'] == 'deck': 
@@ -239,7 +226,6 @@ def ending_check(user_input):
 def main():
     cur_location = gamestate['current location']
     print('\n'*7 + f"{cur_location['name'].capitalize()}\n\n{''.join(cur_location['desc'])}")
-    # print(line_join(52))
 
     gamestate['last_user_input'] = parse_input(input("Type 'h' for help.\n\nWhat would you like to do?\n>> ").lower())
 
@@ -254,94 +240,6 @@ def main():
         return cmd_options[first_word_in_input](gamestate['last_user_input'])
 
     return usage_error()
-    # death(user_input)
-    # # Eftersom commands inte funkade:
-    # if user_input == None:
-    #     return usage_error()
-    # if 'go' in user_input:
-    #     return goto_location(user_input)
-    # elif 'take' in user_input:
-    #     return pickup_item(user_input)
-    # elif 'look' in user_input:
-    #     return look_check(user_input)
-    # elif 'use' in user_input:
-    #     return use_item(user_input)
-    # elif 'look' in user_input:
-    #     return look_check(user_input)
-    # elif 'help' in user_input:
-    #     return help()
-    # return usage_error()
-
-
-        # alt: !!!!!!
-        # cmd_options = {'go': goto_location(user_input), 'take': pickup_item(user_input), 'use': use_item(user_input), 'look': look_check(user_input), 'help': help()}        
-        
-        
-        
-        # print(cmd_options[user_input.split()[0]])
-        # print(cmd_options['help'])
-        # if user_input.split()[0] in cmd_options:
-        #     return cmd_options[user_input.split()[0]]
-        # else:
-        #     return usage_error()
-        # Från: https://stackoverflow.com/questions/17166074/most-efficient-way-of-making-an-if-elif-elif-else-statement-when-the-else-is-don 
-
 
 input("\n"*3 + f"{''.join(line[1:4])} \nPress enter to continue.")
 main()
-
-
-# def main(): #kanske ta bort funktionen
-# #    main_menu()
-#     print(f'\n\n{line[0]}')
-
-
-#     # current location 
-#     cur_location = 'captains quarters'
-#def main_game():
-# while Repeat == True:
-# #        print('You are in the {}.'.format(cur_location['name'], ))  # Print current location
-# #        print('This room contains {}.'.format(cur_location['item'], ))  # Print the item in the locations, BEHÖVS NOG INTE
-        
-#         print('\n'*7 + f"You are in/on the {(cur_location['name'])}.\n{''.join(cur_location['desc'])}")
-        
-#         user_input = parse_input(input('\n\nWhat would you like to do?\n>> ').lower())
-#         print('_____')
-#         print(user_input)
-#         if user_input == None:
-#             usage_error()
-#         elif 'go' in user_input:
-#             goto_location(user_input)
-#         elif 'take' in user_input:
-#             pickup_item(user_input)
-#         elif 'use' in user_input:
-#             use_item(user_input, gamestate)
-#         elif 'turn' in user_input:
-#             radio(user_input)
-#         else:
-#             usage_error()
-        
-#         print(cur_location['name'])
-#         print(cur_location['item'])
-#         print(cur_location['use_item_on'])
-#         print(cur_location['roomchoice'])
-        
-        # Gamla commands av Linus:
-        #
-        # commands['take item'] = {
-        #     'perform': pickup_item(user_input)
-        # }
-        # commands['use item'] = {
-        #     'perform': use_item(user_input, gamestate)
-        # }
-
-        # commands['goto location'] = {
-        #     'perform': goto_location(user_input)
-        # }
-        # 
-        # Dessa går igenom en efter en. Vet inte hur de fungerar. 
-        # If fungerar minst lika bra, men commands är kanske är snabbare. 
-        #  - error från commands kommer före if (tror jag).
-
-
-        #print(main())
