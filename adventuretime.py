@@ -96,10 +96,8 @@ def pickup_item(user_input):
 
 
 def use_item_success(item_used):
-    item_text_list = {'crowbar': line_join(20), 'fuse': line_join(22), 'papers': line_join(22), 'bed': line_join(24)}
     item_action_list = ['fuse','toolbox', 'key', 'crowbar']
-    
-     # Tror nog allt måste vara if-satser, då det inte går att appenda typ toolbox från input "key" i dictionary
+
     if item_used in item_action_list:
         if item_used == 'key':
             gamestate['current location']['item'].append('toolbox')
@@ -115,9 +113,6 @@ def use_item_success(item_used):
         elif item_used == 'toolbox':
             gamestate['lifeboat'] = 'fixed'
             input(line_join(52))
-            
-    else:
-        input(item_text_list[item_used])
     return main()
 
 def use_item(user_input):
@@ -185,10 +180,10 @@ def look_check(user_input):
     lookat_input_text = " ".join(lookat_input)
     itemlocation_check = lookat_input_text in gamestate['current location']['lookat']
 
-    lookat_list = {'desk': line_join(22), 'papers': line_join(22), 'bed': line_join(24), 'corner': line_join(27), 'engine': line_join(33), 'fusebox': line_join(35), 'lifeboat': line_join(42)}
+    lookat_object_list = {'desk': line_join(22), 'papers': line_join(22), 'bed': line_join(24), 'corner': line_join(27), 'engine': line_join(33), 'fusebox': line_join(35), 'lifeboat': line_join(42)}
     if itemlocation_check:
-        if lookat_input_text in lookat_list:
-            input(lookat_list[lookat_input_text])
+        if lookat_input_text in lookat_object_list:
+            input(lookat_object_list[lookat_input_text])
             return main()
         elif lookat_input_text == 'corner' and 'crowbar' not in gamestate['items taken']:
             input(line_join(27))
@@ -226,11 +221,12 @@ def ending_check(user_input):
                 return end('BAD')
             elif gamestate['lifeboat'] == 'fixed':
                 return end('NEUTRAL')
-    elif 'use radio' in user_input:
+    elif 'use radio' in user_input and gamestate['current location']['name'] == 'captains quarters':
         if gamestate['electricity'] == 'off':
             input(line_join(20))
+            return main()
         elif gamestate['electricity'] == 'on':
-            end('GOOD')
+            return end('GOOD')
 
 
 

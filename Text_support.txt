@@ -74,17 +74,15 @@ Commands:
 'use/u [item] on [use_item_on]'
 'walk/go/run/g to the [new location]'
 
-You can also look around the room, or at room-specific things by using:
-'look/l at [text]'
+You can also look at room-specific things by using:
+'look/l at [object]'
 
 Aswell as check your inventory:
 'i/inventory'
-
-
-
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 
 
 
+Usage_error:
 You cannot do that here.
