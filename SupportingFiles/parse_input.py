@@ -1,3 +1,5 @@
+
+
 def parse_input(text_input):
     print('bing')
     words = text_input.split(' ')
