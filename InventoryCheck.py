@@ -11,8 +11,3 @@ def inventory_check(gamestate, main):
         input(f"\nThe following things are in your inventory: \n{inventory_text}")
         
     return main()
-
-
-
-
-## hej
