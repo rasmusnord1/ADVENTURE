@@ -13,7 +13,7 @@ Beds for the crew lines the walls. The room is dimly lit, but you can still see 
     engine room:
 The engine room is colder than it usually is, and it us . The engine seemes to be off. In front of you, there is a fusebox, and next to it stands a metal locker. You know that tools are stored in there. There are no other exits other than the staircase back to the sleeping quarters.
     deck:
-The cold, humid air hits you as you walk out on the deck. It is quiet and nothing suggests that there is anyone else there. Farther away, a large stack of shipping containers stands. You don’t remember what the ship is supposed to be carrying, or maybe you didn’t ask. Closer to you, an identical shipping container stands on its own. It has stood there for the entire journey, but you never asked why it isn’t near the other containers or what it contains. The doors are locked with a sturdy but rusty chain. All the lifeboats seem to have disappeared. However, the ship is old and still has one old metal lifeboat left. They apparently didn’t remove it when they renovated the ship. There is a door which leads to the kitchen. There is also a staircase which leads to the captain's quarters.
+The cold, humid air hits you as you walk out on the deck. It is quiet and nothing suggests that there is anyone else there. Farther away, a large stack of shipping containers stands. You don’t remember what the ship is supposed to be carrying, or maybe you didn’t ask. Closer to you, an identical shipping container stands on its own. It has stood there for the entire journey, but you never asked why it isn’t near the other containers or what it contains. The doors are locked shut with a sturdy but rusty chain. All the lifeboats seem to have disappeared. However, the ship is old and still has one old metal lifeboat left. They apparently didn’t remove it when they renovated the ship. There is a door which leads to the kitchen. There is also a staircase which leads to the captain's quarters.
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––
 Room specific items:
     captains quarters:
@@ -42,7 +42,7 @@ Inside, there is a toolbox with an abundance of tools. You could surely get some
         lifeboat:
 The lifeboat is old and rusty. In this state, using it would not go well. However, with the help of some tools, you could definitely make it safe to use.
         closed shipping container:
-The rusty shipping container is locked with a sturdy chain, as it always is. Maybe there is something interesting in it?
+The doors of the rusty shipping container are locked with a sturdy chain, as it always is. Maybe there is something interesting in it? If only you had something to pry the doors open with.
         open shipping container:
 The doors of the shipping container are now open, and it is very dark in there.
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -52,7 +52,7 @@ You put the key into the keyhole of the locker and turn it around. The locker do
     toolbox:
 You take some tools from the toolbox and start repairing the boat. It is now in working order.
     crowbar
-You use the crowbar to open the rusty doors of the shipping container. Inside, it is completely empty. Have it been empty this whole time? But, wait! You see something small and dark laying on the floor a few meters in front of you. Opon closer inspection, you can see that it is a fuse. Why is it here?
+You use the crowbar to open the rusty doors of the shipping container. You manage to make a small gap in the doorway, but the crowbar breaks in the process. You pull and eventually get the creaking doors open. Inside, it is completely empty. Have it been empty this whole time? But, wait! You see something small and dark laying on the floor a few meters in front of you. Opon closer inspection, you can see that it is a fuse. Why is it here?
     fuse
 You put the fuse into the right spot. You then hear the sound of a lot of devices which finally turns on. The ship finally has power! Now the radio should work.
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -64,8 +64,8 @@ You step carefully into the lifeboat and lower yourself down into the water. The
     Good Ending:
 You pick up the radio and dial the coastguard. You tell them that you are stranded on a ship alone and send over your coordinates. Apparently they were already searching for the ship. They tell you that they have sent a rescuing team to your location and tell you to stay put. Not long after, you are picked up and taken to land. On the way, they tell you that they found the crew and the captain, and that they have been apprehended. They tell you that you need to answer a few questions at the police station. Perhaps you can now figure out what happened, but right now, you are just happy you're safe. GOOD ENDING
 
-Help section:
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––
+Help section:
 You need help? Too stupid?
 
 Commands:
