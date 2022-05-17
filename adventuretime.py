@@ -351,6 +351,7 @@ def main():
     cmd_options = {'go': goto_location, 'take': pickup_item, 'use': use_item, 'look': look_check, 'help': Help.help, 'inventory': InventoryCheck}
 
     first_word_in_input = "".join(gamestate['current user input'].split()[0])
+    # Tar och delar upp 'current user input' till en lista och tar ut första ordet. Sedan gör join. delen att det första ordet görs om till en string igen.
 
     print(cmd_options[first_word_in_input](gamestate))
 
