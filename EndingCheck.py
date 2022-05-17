@@ -21,3 +21,5 @@ def ending_check(gamestate, main):
 
         elif gamestate['electricity'] == 'on':
             return End('GOOD', LineJoin)
+
+# testa123
