@@ -15,10 +15,10 @@ def can_goto_location(gamestate):
 
     words = user_input.split()
 
-    if words[0] == 'go':
-        is_input_in_roomchoice = (' ').join(words[1:]) in gamestate['current location']['roomchoice']
+    # if words[0] == 'go':
+    is_input_in_roomchoice = (' ').join(words[1:]) in gamestate['current location']['roomchoice']
 
-        return is_input_in_roomchoice
+    return is_input_in_roomchoice
 
 def goto_location(gamestate, main):
 

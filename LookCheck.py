@@ -13,7 +13,7 @@ def look_check(gamestate, main):
 
     itemlocation_check = lookat_input_text in gamestate['current location']['lookat']
 
-    lookat_object_list = {'desk': LineJoin(22), 'papers': LineJoin(22), 'bed': LineJoin(24), 'corner': LineJoin(27), 'engine': LineJoin(33), 'fusebox': LineJoin(35), 'lifeboat': LineJoin(42)}
+    lookat_object_list = {'desk': LineJoin(22), 'papers': LineJoin(22), 'bed': LineJoin(24), 'engine': LineJoin(33), 'fusebox': LineJoin(35), 'lifeboat': LineJoin(42)}
     
     if itemlocation_check:
 
