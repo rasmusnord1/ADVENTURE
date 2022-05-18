@@ -1,7 +1,7 @@
 file = open('Text_support.txt')
 line = file.readlines()
 
-def inventory_check(gamestate, main):
+def inventory_check(gamestate):
 
     if gamestate['inventory'] == []:
         input('\nYou have nothing in your inventory.')
@@ -10,4 +10,4 @@ def inventory_check(gamestate, main):
         inventory_text = (', ').join(gamestate['inventory'])
         input(f"\nThe following things are in your inventory: \n{inventory_text}")
         
-    return main()
+    return

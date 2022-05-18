@@ -1,7 +1,11 @@
+from LineJoin import *
+from End import *
+from EndingCheck import *
+from UsageError import *
+
 file = open('Text_support.txt')
 line = file.readlines()
 
-import LineJoin
 
 def use_item_success(item_used, gamestate):
 
@@ -10,37 +14,37 @@ def use_item_success(item_used, gamestate):
         gamestate['current location']['item'].append('toolbox')
         gamestate['locker'] = 'open'
 
-        input(LineJoin(50))
+        input(line_join(50))
 
     elif item_used == 'crowbar':
 
         gamestate['current location']['item'].append('fuse')
         gamestate['shipping container'] = 'open'
 
-        input(LineJoin(54))
+        input(line_join(54))
 
     elif item_used == 'fuse':
 
         gamestate['electricity'] = 'on'
 
-        input(LineJoin(56))
+        input(line_join(56))
         
     elif item_used == 'toolbox':
 
-        input(LineJoin(52))
+        input(line_join(52))
 
         end('NEUTRAL')
 
-    return main()
+    return ()
 
 
 
-def use_item(gamestate, line_join, usage_error, main):
+def use_item(gamestate):
 
     user_input = gamestate['current user input']
 
 
-    ending_check(gamestate, line_join, main)
+    ending_check(gamestate)
     words = user_input.split()
 
     if len(words) == 1:
@@ -63,19 +67,19 @@ def use_item(gamestate, line_join, usage_error, main):
 
                     use_item_success(item_used_from_input, gamestate)
 
-                    return main()
+                    return 
 
                 input("\nNothing happened.")
-                return main()
+                return 
 
             input("\nYou cannot use that item here.")
-            return main()
+            return 
 
         input("\nYou have to specify what to use the item on.")
-        return main()
+        return 
 
     input("\nYou don't have that item in your inventory.")
-    return main()
+    return 
 
 
     

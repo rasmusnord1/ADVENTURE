@@ -1,5 +1,8 @@
+from UsageError import *
+
 file = open('Text_support.txt')
 line = file.readlines()
+
 
 rooms = {
     'captains quarters': {'name': 'captains quarters', 'roomchoice': ['deck'], 'item': [], 'useitem' : [], 'use_item_on': [], 'desc' : line[7], 'lookat' : ['papers','radio','desk','bed']},
@@ -15,12 +18,11 @@ def can_goto_location(gamestate):
 
     words = user_input.split()
 
-    # if words[0] == 'go':
     is_input_in_roomchoice = (' ').join(words[1:]) in gamestate['current location']['roomchoice']
 
     return is_input_in_roomchoice
 
-def goto_location(gamestate, main):
+def goto_location(gamestate):
 
     user_input = gamestate['current user input']
 
@@ -31,6 +33,6 @@ def goto_location(gamestate, main):
 
         input(f"\nYou walk to the {gamestate['current location']['name']}") 
 
-        return main()
+        return
 
-    return usage_error(main)
+    return usage_error()

@@ -1,4 +1,5 @@
-def usage_error(main):
+def usage_error():
+
 
     input('\nYou cannot do that here')
-    return main()
+    return

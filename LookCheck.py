@@ -1,10 +1,12 @@
+from LineJoin import *
+from UsageError import *
+from End import *
+
 file = open('Text_support.txt')
 line = file.readlines()
 
-import LineJoin
-import UsageError
 
-def look_check(gamestate, main):
+def look_check(gamestate):
 
     user_input = gamestate['current user input']
 
@@ -13,55 +15,55 @@ def look_check(gamestate, main):
 
     itemlocation_check = lookat_input_text in gamestate['current location']['lookat']
 
-    lookat_object_list = {'desk': LineJoin(22), 'papers': LineJoin(22), 'bed': LineJoin(24), 'engine': LineJoin(33), 'fusebox': LineJoin(35), 'lifeboat': LineJoin(42)}
+    lookat_object_list = {'desk': line_join(22), 'papers': line_join(22), 'bed': line_join(24), 'engine': line_join(33), 'fusebox': line_join(35), 'lifeboat': line_join(42)}
     
     if itemlocation_check:
 
         if lookat_input_text in lookat_object_list:
 
             input(lookat_object_list[lookat_input_text])
-            return main()
+            return 
 
         elif lookat_input_text == 'corner' and 'crowbar' not in gamestate['items taken']:
 
-            input(LineJoin(27))
-            return main()
+            input(line_join(27))
+            return 
 
         elif lookat_input_text == 'bag' and 'key' not in gamestate['items taken']:
 
-            input(LineJoin(30)) 
-            return main()
+            input(line_join(30)) 
+            return 
 
         elif lookat_input_text == 'shipping container':
 
             if gamestate['shipping container'] == 'closed':
-                input(LineJoin(44))
+                input(line_join(44))
 
             elif gamestate['shipping container'] == 'open':
-                input(LineJoin(46))
+                input(line_join(46))
 
 
         elif lookat_input_text == 'locker':
 
             if gamestate['locker'] == 'closed':
-                input(LineJoin(37))
+                input(line_join(37))
 
             elif gamestate['locker'] == 'open' and 'toolbox' not in gamestate['items taken']:
-                input(LineJoin(39))
+                input(line_join(39))
 
             else:
-                return UsageError(main)
+                return usage_error()
 
         elif lookat_input_text == 'radio':
 
             if gamestate['electricity'] == 'off':
-                input(LineJoin(20))
+                input(line_join(20))
 
             elif gamestate['electricity'] == 'on':
                 end('GOOD')
         
         else:
-            return UsageError(main)
+            return usage_error()
     else:
-        return UsageError(main)
-    return main()
+        return usage_error()
+    return
