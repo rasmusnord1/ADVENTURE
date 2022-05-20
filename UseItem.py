@@ -49,36 +49,29 @@ def use_item(gamestate):
 
     if len(words) == 1:
         return usage_error()
-        
+
     item_used_from_input = words[1]
     object_used_on_from_input = (' ').join(words[3:])
-    
-    if words[1] in gamestate['inventory']:
-        if 'use' and 'on' in words:
 
-            if item_used_from_input in gamestate['current location']['useitem']:
+    if words[1] not in gamestate['inventory']:
+        return input("\nYou don't have that item in your inventory.")
 
-                item_object_combination_check = gamestate['current location']['useitem'].index(item_used_from_input)
+    if 'on' not in words:
+        return input("\nYou have to specify what to use the item on.")
 
-                if object_used_on_from_input == gamestate['current location']['use_item_on'][item_object_combination_check]:
+    if item_used_from_input not in gamestate['current location']['useitem']:
+        return input("\nYou cannot use that item here.")
 
-                    input(f"\nYou succesfully used your {item_used_from_input} on the {object_used_on_from_input}.")
-                    gamestate['inventory'].remove(item_used_from_input)
+    item_object_combination_check = gamestate['current location']['useitem'].index(item_used_from_input)
 
-                    use_item_success(item_used_from_input, gamestate)
+    if object_used_on_from_input != gamestate['current location']['use_item_on'][item_object_combination_check]:
+        return input("\nNothing happened.")
 
-                    return 
+    input(f"\nYou succesfully used your {item_used_from_input} on the {object_used_on_from_input}.")
+    gamestate['inventory'].remove(item_used_from_input)
 
-                input("\nNothing happened.")
-                return 
+    use_item_success(item_used_from_input, gamestate)
 
-            input("\nYou cannot use that item here.")
-            return 
-
-        input("\nYou have to specify what to use the item on.")
-        return 
-
-    input("\nYou don't have that item in your inventory.")
     return 
 
 
